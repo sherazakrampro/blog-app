@@ -11,6 +11,7 @@ router.get("/signin", (req, res) => {
   res.render("signin");
 });
 
+// Sign Up Route
 router.post("/signup", async (req, res) => {
   const { fullName, email, password } = req.body;
   if (!fullName || !email || !password) {
@@ -22,6 +23,7 @@ router.post("/signup", async (req, res) => {
   return res.redirect("/user/signin");
 });
 
+// Sign In Route
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -29,9 +31,15 @@ router.post("/signin", async (req, res) => {
       errorMessage: "Please fill all the fields",
     });
   }
-  const user = await User.matchPassword(email, password);
-  console.log(user);
-  return res.redirect("/");
+  try {
+    const token = await User.matchPasswordAndCreateToken(email, password);
+    return res.cookie("token", token).redirect("/");
+  } catch (error) {
+    console.log(error);
+    return res.render("signin", {
+      errorMessage: "Invalid email or password",
+    });
+  }
 });
 
 module.exports = router;
