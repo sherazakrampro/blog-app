@@ -2,22 +2,12 @@
 <html lang="en">
   <head>
     <%- include('./partials/head.ejs') %>
-    <title>SignUp</title>
+    <title>SignIn</title>
   </head>
   <body>
     <%- include('./partials/navbar.ejs') %>
     <div class="container mt-4">
-      <form action="/user/signup" method="post">
-        <div class="mb-3">
-          <label for="fullName" class="form-label">Full Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="fullName"
-            aria-describedby="emailHelp"
-            name="fullName"
-          />
-        </div>
+      <form action="/user/signin" method="post">
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
           <input
@@ -37,7 +27,7 @@
             name="password"
           />
         </div>
-        <button type="submit" class="btn btn-primary">SignUp</button>
+        <button type="submit" class="btn btn-primary">SignIn</button>
       </form>
     </div>
 

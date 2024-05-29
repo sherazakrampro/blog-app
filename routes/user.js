@@ -19,7 +19,19 @@ router.post("/signup", async (req, res) => {
     });
   }
   await User.create({ fullName, email, password });
-  return res.redirect("/signin");
+  return res.redirect("/user/signin");
+});
+
+router.post("/signin", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.render("signin", {
+      errorMessage: "Please fill all the fields",
+    });
+  }
+  const user = await User.matchPassword(email, password);
+  console.log(user);
+  return res.redirect("/");
 });
 
 module.exports = router;
