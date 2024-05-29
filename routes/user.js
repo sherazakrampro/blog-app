@@ -16,7 +16,7 @@ router.post("/signup", async (req, res) => {
   const { fullName, email, password } = req.body;
   if (!fullName || !email || !password) {
     return res.render("signup", {
-      errorMessage: "Please fill all the fields",
+      error: "Please fill all the fields",
     });
   }
   await User.create({ fullName, email, password });
@@ -28,7 +28,7 @@ router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.render("signin", {
-      errorMessage: "Please fill all the fields",
+      error: "Please fill all the fields",
     });
   }
   try {
@@ -37,7 +37,7 @@ router.post("/signin", async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.render("signin", {
-      errorMessage: "Invalid email or password",
+      error: "Invalid email or password",
     });
   }
 });
